@@ -5,4 +5,11 @@
   padding-top: 12px;
   padding-bottom: 12px;
   font-size: 16px;
+  border: 0;
+  border-radius: 27px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
 }

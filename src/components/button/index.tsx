@@ -1,11 +1,16 @@
 import styles from "./Button.module.css";
 
 export const Button = ({
-    children
+  children,
+  image,
 }: {
-    children: string
+  children: string;
+  image?: any;
 }) => {
-    return (
-        <button className={styles.button}>{children}</button>
-    );
+  return (
+    <button className={styles.button}>
+      {children}
+      {image && image}
+    </button>
+  );
 };
