@@ -1,5 +1,12 @@
+import { Header } from "../header";
+
 export const Layout = ({ children }: { children: React.ReactNode }) => {
-  return <>{children}</>;
+  return (
+    <>
+      <Header />
+      {children}
+    </>
+  );
 };
 
 export default Layout;
