@@ -2,7 +2,7 @@ import { Button } from "@/components/button";
 import ChevronRight from "../assets/chevron-right.svg";
 import { ProgressBar } from "@/components/progressBar";
 
-export default function Home() {
+export default function LoginScreen() {
   return (
     <div>
       <Button image={<ChevronRight />}>Next</Button>
