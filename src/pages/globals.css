@@ -1,4 +1,13 @@
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Variable.woff2') format(woff2);
+}
+
 body {
   background-color: #ffede9;
   margin: 0;
+}
+
+* {
+  font-family: 'Satoshi';
 }

@@ -1,23 +1,18 @@
-import { Button } from "@/components/button";
-import ChevronRight from "../assets/chevron-right.svg";
-import { ProgressBar } from "@/components/progressBar";
+import { PageConstraints } from "@/components/constraints";
+import { LoginDialogue } from "@/components/login";
 
-export default function LoginScreen() {
+
+export const LoginScreen = () => {
   return (
-    <div>
-      <Button image={<ChevronRight />}>Next</Button>
+    <PageConstraints>
+      <div>
+        <h1>Login</h1>
+      </div>
 
-      <Button>Next</Button>
-
-      <ProgressBar progress={50}></ProgressBar>
-      <br />
-      <ProgressBar progress={100}></ProgressBar>
-      <br />
-      <ProgressBar progress={0}></ProgressBar>
-      <br />
-      <ProgressBar progress={-10}></ProgressBar>
-      <br />
-      <ProgressBar progress={130}></ProgressBar>
-    </div>
+      <LoginDialogue />
+    </PageConstraints>
   );
 }
+
+
+export default LoginScreen;

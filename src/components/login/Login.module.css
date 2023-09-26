@@ -1,0 +1,19 @@
+.dialogue {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 30px;
+    width: 60%;
+    min-width: 700px;
+    border-radius: 20px;
+}
+
+.text {
+    display: flex;
+    width: 100%;
+    justify-content: start;
+    align-items: center;
+}
