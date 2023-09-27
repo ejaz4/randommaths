@@ -11,3 +11,17 @@ body {
 * {
   font-family: 'Satoshi';
 }
+
+p {
+  font-weight: 500;
+}
+
+input {
+  padding: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #FDF5F3;
+}
