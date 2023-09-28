@@ -24,4 +24,10 @@ input {
   width: 100%;
   box-sizing: border-box;
   background-color: #FDF5F3;
+  border-radius: 10px;
+}
+
+input:focus {
+  outline: #FF7A00 2px solid;
+  outline-offset: 2px;
 }

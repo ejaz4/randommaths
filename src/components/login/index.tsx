@@ -8,8 +8,10 @@ export const LoginDialogue = () => {
         <p>Enter your email address</p>
       </div>
 
-      <input type="email" id="emailInput" />
-      <input type="password" id="passwordInput" />
+      <div>
+        <input type="email" id="emailInput" />
+        <input type="password" id="passwordInput" />
+      </div>
     </div>
   );
 };

@@ -11,6 +11,11 @@
     border-radius: 20px;
 }
 
+.inputContainer {
+    width: 100%;
+    
+}
+
 .text {
     display: flex;
     width: 100%;
