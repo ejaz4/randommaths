@@ -25,6 +25,8 @@ input {
   box-sizing: border-box;
   background-color: #FDF5F3;
   border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 input:focus {
