@@ -9,7 +9,7 @@ export const Button = ({
   image?: any;
   onClick?: () => void;
 }) => {
-  compo
+
   return (
     <button className={styles.button}>
       {children}
