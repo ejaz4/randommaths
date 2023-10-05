@@ -1,8 +1,41 @@
 import styles from "./Login.module.css";
 import { Button } from "../button";
 import LoginIcon from "../../assets/log-in.svg"
+import { emailRegex } from "@/constants/email";
 
 export const LoginDialogue = () => {
+  const inputValidation = () => {
+    const emailInput = document.getElementById("emailInput") as HTMLInputElement;
+    const passwordInput = document.getElementById("passwordInput") as HTMLInputElement;
+
+    const emailAddress = emailInput.value;
+    const password = passwordInput.value;
+    
+    var valid = {
+      email: true,
+      password: true
+    };
+
+    if (emailAddress.trim() == "") valid.email = false
+    if (!emailRegex.test(emailAddress)) valid.email = false
+    if (password.length < 8) valid.password = false
+
+    if (!valid.email) {
+      emailInput.classList.add(styles.invalid)
+    }
+
+    if (!valid.password) {
+      passwordInput.classList.add(styles.invalid)
+    }
+
+    if (valid.email && valid.password) {
+      emailInput.classList.remove(styles.invalid);
+      passwordInput.classList.remove(styles.invalid);
+
+      alert("It works!")
+    }
+  }
+
   return (
     <>
     <div className={styles.dialogue}>
@@ -27,7 +60,7 @@ export const LoginDialogue = () => {
     <div className={styles.buttonContainer}>
       <div></div>
       <div>
-        <Button image={<LoginIcon/>}>Log In</Button>
+        <Button onClick={inputValidation} image={<LoginIcon/>}>Log In</Button>
       </div>
     </div>
     </>

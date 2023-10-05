@@ -4,9 +4,12 @@ import { Button } from "@/components/button";
 import ChevronRight from "@/assets/chevron-right.svg"
 
 export const LoginScreen = () => {
-  return (
-      <Button image={<ChevronRight/>}>Next</Button>
+  const hello = () => {
+    alert("It works!")
+  }
 
+  return (
+      <Button onClick={hello} image={<ChevronRight/>}>Next</Button>
   );
 }
 

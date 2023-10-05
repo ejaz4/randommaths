@@ -34,3 +34,8 @@
     min-width: 700px;
     margin-top: 20px;
 }
+
+.invalid {
+    color: red;
+    outline-color: red !important;
+}

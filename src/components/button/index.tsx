@@ -1,5 +1,6 @@
 import styles from "./Button.module.css";
 
+// This is a standard button component that can be used anywhere in the app
 export const Button = ({
   children,
   image,
@@ -11,7 +12,7 @@ export const Button = ({
 }) => {
 
   return (
-    <button className={styles.button}>
+    <button onClick={onClick} className={styles.button}>
       {children}
       {image && image}
     </button>
