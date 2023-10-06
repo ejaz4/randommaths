@@ -22,10 +22,20 @@ export const LoginDialogue = () => {
 
     if (!valid.email) {
       emailInput.classList.add(styles.invalid)
-    }
+      emailInput.classList.add(styles.invalidAnimation);
 
+      emailInput.addEventListener("animationend", () => {
+        emailInput.classList.remove(styles.invalidAnimation)
+      })
+    }
+    
     if (!valid.password) {
       passwordInput.classList.add(styles.invalid)
+      passwordInput.classList.add(styles.invalidAnimation)
+
+      passwordInput.addEventListener("animationend", () => {
+        passwordInput.classList.remove(styles.invalidAnimation)
+      })
     }
 
     if (valid.email && valid.password) {
@@ -37,7 +47,7 @@ export const LoginDialogue = () => {
   }
 
   return (
-    <>
+    <div className={styles.outerDialogue}>
     <div className={styles.dialogue}>
       <div className={styles.text}>
         <h1>Enter your credentials</h1>
@@ -46,13 +56,13 @@ export const LoginDialogue = () => {
 
       <div className={styles.inputContainer}>
         <div>
-          <input type="email" id="emailInput" />
+          <input type="email" id="emailInput" className={styles.loginInput}/>
           <p>This is typically the email address you used to sign up to RandomMaths. In some cases this can be your school email address.</p>
         </div>
 
         <div>
           <p>Enter your passphrase</p>
-          <input type="password" id="passwordInput" />
+          <input type="password" id="passwordInput" minLength={8} className={styles.loginInput} />
         </div>
       </div>
     </div>
@@ -60,9 +70,9 @@ export const LoginDialogue = () => {
     <div className={styles.buttonContainer}>
       <div></div>
       <div>
-        <Button onClick={inputValidation} image={<LoginIcon/>}>Log In</Button>
+        <Button onClick={inputValidation} image={<LoginIcon/>} >Log In</Button>
       </div>
     </div>
-    </>
+    </div>
   );
 };
