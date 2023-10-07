@@ -10,9 +10,6 @@
   },
   "dependencies": {
     "@svgr/webpack": "^8.1.0",
-    "@types/node": "20.4.4",
-    "@types/react": "18.2.15",
-    "@types/react-dom": "18.2.7",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",
     "next": "13.4.12",
@@ -20,5 +17,11 @@
     "react-dom": "18.2.0",
     "typescript": "5.1.6"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "prisma": "^5.4.1",
+    "ts-node": "^10.9.1",
+    "@types/node": "^20.8.3",
+    "@types/react": "18.2.15",
+    "@types/react-dom": "18.2.7"
+  }
 }
