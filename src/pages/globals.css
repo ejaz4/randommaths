@@ -6,6 +6,7 @@
 body {
   background-color: #ffede9;
   margin: 0;
+  padding-bottom: 30px;
 }
 
 * {
@@ -16,7 +17,7 @@ p {
   font-weight: 500;
 }
 
-input {
+input[type="text"], input[type="password"], input[type="email"] {
   padding: 10px;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -27,6 +28,37 @@ input {
   border-radius: 10px;
   font-size: 16px;
   font-weight: 500;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  border: solid 2px rgba(0,0,0,0.22)
+}
+
+input[type="checkbox"]:checked {
+  background-color: #FF7A00;
+  border: solid 2px #FF7A00;
+}
+
+select {
+  padding: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #FDF5F3;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+select:focus {
+  outline: #FF7A00 2px solid;
+  outline-offset: 2px;
 }
 
 input:focus {
