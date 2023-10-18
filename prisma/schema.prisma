@@ -18,6 +18,8 @@ model User {
   updatedAt     DateTime        @updatedAt
   type          String          @default("student")
   class         Class?          @relation("student", fields: [classId], references: [id])
+  password      String
+  salt          String
   classId       String?
   ClassAndOwner ClassAndOwner[]
   Token         Token[]

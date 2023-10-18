@@ -1,0 +1,52 @@
+        INP
+        STA num1
+        INP
+        STA num2
+	INP
+	STA operation
+	BRA detecDiv
+
+detecDiv LDA divide
+	SUB operation
+	BRZ startDiv
+	BRA
+
+detecMult LDA mult
+	SUB operation
+	BRZ startMult
+
+startDiv LDA num1
+	SUB num2
+	STA num1
+	LDA result
+	ADD one
+	STA result
+	LDA num1
+	BRZ output
+	BRP startDiv
+
+startMult   LDA num2
+        SUB count
+        BRZ output
+        BRP multiply
+
+multiply LDA result
+        ADD num1
+        STA result
+        LDA count
+        ADD one
+        STA count
+        BRA startMult
+
+output  LDA result
+        OUT
+        HLT
+
+num1    DAT
+num2    DAT 0
+operation DAT
+result  DAT
+count   DAT 0
+one     DAT 1
+divide DAT 1
+mult DAT 0

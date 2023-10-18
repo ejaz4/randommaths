@@ -2,7 +2,7 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     box-sizing: border-box;
     padding: 30px;
@@ -35,7 +35,7 @@
     width: 100%;
     justify-content: center;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .buttonContainer {
@@ -46,8 +46,11 @@
 }
 
 .invalid, .loginInput:invalid {
-    color: red;
     outline-color: red !important;
+}
+
+.loginInput:invalid {
+    color: red;
 }
 
 .invalidAnimation {

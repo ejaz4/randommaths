@@ -5,7 +5,7 @@ import UserPlus from "../../assets/user-plus.svg";
 import { emailRegex } from "@/constants/email";
 
 export const LoginDialogue = ({ setScreen }: { setScreen: any }) => {
-  const inputValidation = () => {
+  const inputValidation = async() => {
     // Get the email and password inputs
     const emailInput = document.getElementById(
       "emailInput"
@@ -59,7 +59,27 @@ export const LoginDialogue = ({ setScreen }: { setScreen: any }) => {
       emailInput.classList.remove(styles.invalid);
       passwordInput.classList.remove(styles.invalid);
 
-      alert("It works!");
+      // Send the data to the server
+      const loginRequest = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: emailAddress,
+          password: password,
+        }),
+      });
+
+      // Check if the request was successful
+      if (loginRequest.status == 200) {
+        const loginResponse = await loginRequest.json();
+        // Store the token in the local storage
+        localStorage.setItem("token", loginResponse.token);
+
+        // Redirect the user to the dashboard
+        window.location.href = "/dashboard";
+      }
     }
   };
 
