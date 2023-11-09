@@ -3,6 +3,7 @@ import { Button } from "../button";
 import LoginIcon from "../../assets/log-in.svg";
 import UserPlus from "../../assets/user-plus.svg";
 import { emailRegex } from "@/constants/email";
+import { Dialogue } from "../onePageDialogue";
 
 export const LoginDialogue = ({ setScreen }: { setScreen: any }) => {
   const inputValidation = async() => {
@@ -84,8 +85,25 @@ export const LoginDialogue = ({ setScreen }: { setScreen: any }) => {
   };
 
   return (
-    <div className={styles.outerDialogue}>
-      <div className={styles.dialogue}>
+    <Dialogue footer={
+      <div className={styles.buttonContainer}>
+      <div>
+        <Button
+          onClick={() => {
+            setScreen("signup");
+          }}
+          image={<UserPlus />}
+        >
+          Sign Up
+        </Button>
+      </div>
+      <div>
+        <Button onClick={inputValidation} image={<LoginIcon />}>
+          Log In
+        </Button>
+      </div>
+    </div>
+    }>
         <div className={styles.text}>
           <h1>Enter your credentials</h1>
           <p>Enter your email address</p>
@@ -110,25 +128,6 @@ export const LoginDialogue = ({ setScreen }: { setScreen: any }) => {
             />
           </div>
         </div>
-      </div>
-
-      <div className={styles.buttonContainer}>
-        <div>
-          <Button
-            onClick={() => {
-              setScreen("signup");
-            }}
-            image={<UserPlus />}
-          >
-            Sign Up
-          </Button>
-        </div>
-        <div>
-          <Button onClick={inputValidation} image={<LoginIcon />}>
-            Log In
-          </Button>
-        </div>
-      </div>
-    </div>
+      </Dialogue>
   );
 };

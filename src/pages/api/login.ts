@@ -39,7 +39,7 @@ export default async function handler(
         var id = encodeBase64(user.id);
         var randomElement = generateRandomString(64);
         var token = id + "." + randomElement;
-
+        
         await prisma.token.create({
           data: {
             token,

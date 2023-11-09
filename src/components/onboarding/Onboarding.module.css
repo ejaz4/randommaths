@@ -1,0 +1,49 @@
+.inputContainer {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.text {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.buttonContainer {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	margin-top: 20px;
+}
+
+.buttonContainer div {
+	display: flex;
+	gap: 10px;
+}
+
+.invalid,
+.loginInput:invalid {
+	outline-color: red !important;
+}
+
+.loginInput:invalid {
+	color: red;
+}
+
+.invalidAnimation {
+	animation: invalid 0.3s ease-out;
+}
+
+@keyframes invalid {
+	0% {
+		background-color: rgba(255, 0, 0, 0.2);
+	}
+	100% {
+		background-color: auto;
+	}
+}

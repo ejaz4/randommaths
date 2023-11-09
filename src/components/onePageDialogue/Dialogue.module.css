@@ -1,0 +1,23 @@
+.dialogue {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 30px;
+    border-radius: 20px;
+    width: 100%;
+}
+
+.outerDialogue {
+    width: 60%;
+    min-width: 700px;
+}
+
+@media only screen and (max-width: 728px) {
+    .outerDialogue {
+        min-width: 0;
+        width: 100%
+    }
+}
