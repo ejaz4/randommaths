@@ -51,7 +51,11 @@ export const ClassCreationDialogue = () => {
 			}),
 		});
 
-		console.log(await createRequest.json());
+		if (createRequest.status == 200) {
+			return window.location.href = `/class/${(await createRequest.json()).classId}`;
+		} else {
+			return alert("An error occured while creating your class. Please try again later.");
+		}
 	}
 
 	return (

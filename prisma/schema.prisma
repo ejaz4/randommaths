@@ -45,6 +45,6 @@ model Class {
 model ClassAndOwner {
   id        String @id @default(uuid())
   class     Class?
-  teacher   User   @relation(fields: [id], references: [id])
+  teacher   User   @relation(fields: [teacherId], references: [id])
   teacherId String
 }
