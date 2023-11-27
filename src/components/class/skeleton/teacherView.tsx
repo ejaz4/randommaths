@@ -12,7 +12,7 @@ export const SkeletonView = () => {
 			<div className={styles.studentList}>
 				{[...Array(8)].map((_, i) => {
 					return (
-						<div className={styles.studentListItem}>
+						<div key={i} className={styles.studentListItem}>
 							<span style={{ marginTop: 16, marginBottom: 16 }}>
 								<Skeleton
 									width={`${Math.max(

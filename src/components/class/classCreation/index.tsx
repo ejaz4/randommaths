@@ -79,11 +79,11 @@ export const ClassCreationDialogue = () => {
 				</div>
 			}
 		>
-			<div>
-				<h1>{name.split(" ")[0]}, let's get your class set up</h1>
+			<div style={{ width: "100%" }}>
+				<h1>{name.split(" ")[0]}, let&apos;s get your class set up</h1>
 				<p>
 					To get started, we need to know a bit about your class.
-					Don't worry, you can change this later.
+					Don&apos;t worry, you can change this later.
 				</p>
 
 				<p>Name your class</p>

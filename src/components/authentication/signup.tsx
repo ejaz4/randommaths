@@ -6,6 +6,7 @@ import ChevronRight from "../../assets/chevron-right.svg";
 import { emailRegex } from "@/constants/email";
 import { useState } from "react";
 import { Dialogue } from "../onePageDialogue";
+import { Checkbox } from "../checkbox";
 
 export const SignupDialogue = ({ setScreen }: { setScreen: any }) => {
 	const inputValidation = async () => {
@@ -230,7 +231,7 @@ export const SignupDialogue = ({ setScreen }: { setScreen: any }) => {
 						<option value="teacher">Teacher</option>
 					</select>
 
-					<img src="/images/check.svg" />
+					<Checkbox />
 				</div>
 			</div>
 		</Dialogue>

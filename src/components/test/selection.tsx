@@ -1,8 +1,9 @@
 import { Checkbox } from "../checkbox";
 import { Header } from "../header";
 import { ProgressBar } from "../progressBar";
+import { Skeleton } from "../skeleton";
 import styles from "./selection.module.css";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, Suspense, useEffect, useState } from "react";
 
 type Topic = {
 	name: string;
@@ -20,7 +21,7 @@ export const SelectionScreen = () => {
 	const [topics, setTopics] = useState<Topics<Topic>>({
 		"Topic 1": [{ name: "Subtopic 1", href: "/tests/map" }],
 	});
-	const [state, setState] = useState("loaded");
+	const [state, setState] = useState("loading");
 
 	const [selectedSubtopics, setSelectedSubtopics] = useState<String[]>([]);
 
@@ -55,6 +56,7 @@ export const SelectionScreen = () => {
 		// It is called on page load.
 		await loadSpecifications();
 		await loadTopics();
+		setState("loaded");
 	};
 
 	useEffect(() => {
@@ -69,8 +71,8 @@ export const SelectionScreen = () => {
 				<div className={styles.leftSide}>
 					<div className="innerSelection">
 						<div className="sidebarItem">
-							{Object.keys(specifications).map((spec: any) => {
-								return <p>{spec}</p>;
+							{Object.keys(specifications).map((spec: any, i) => {
+								return <p key={i}>{spec}</p>;
 							})}
 						</div>
 					</div>
@@ -78,34 +80,77 @@ export const SelectionScreen = () => {
 				<div className={styles.rightSide}>
 					<div className={styles.rightSideInner}>
 						<div className={styles.rightSideGrid}>
-							<div>{selectedSubtopics.length}</div>
-
-							{Object.keys(topics).map(
-								(topic: string, index: number) => (
-									<TopicItem title={`${index + 1}. ` + topic}>
-										{topics
-											? topics[topic].map(
-													(subtopic: Topic) => (
-														<SubtopicItem
-															selectedSubtopics={
-																selectedSubtopics
-															}
-															setSelectedSubtopics={
-																setSelectedSubtopics
-															}
-															name={subtopic.name}
-															href={subtopic.href}
-															progress={Math.floor(
-																Math.random() *
-																	100
-															)}
-														/>
-													)
-											  )
-											: null}
-									</TopicItem>
-								)
+							{state == "loaded" && (
+								<>
+									{Object.keys(topics).map(
+										(topic: string, index: number) => (
+											<TopicItem
+												key={index}
+												title={`${index + 1}. ` + topic}
+											>
+												{topics
+													? topics[topic].map(
+															(
+																subtopic: Topic,
+																i
+															) => (
+																<SubtopicItem
+																	key={i}
+																	selectedSubtopics={
+																		selectedSubtopics
+																	}
+																	setSelectedSubtopics={
+																		setSelectedSubtopics
+																	}
+																	name={
+																		subtopic.name
+																	}
+																	href={
+																		subtopic.href
+																	}
+																	progress={Math.floor(
+																		Math.random() *
+																			100
+																	)}
+																/>
+															)
+													  )
+													: null}
+											</TopicItem>
+										)
+									)}
+								</>
 							)}
+
+							<Suspense>
+								{state == "loading" && (
+									<>
+										{[...Array(6)].map((_, index) => (
+											<TopicItem
+												key={index}
+												title={"skeleton"}
+											>
+												{[...Array(6)].map((_, i) => (
+													<SubtopicItem
+														key={i}
+														selectedSubtopics={
+															selectedSubtopics
+														}
+														setSelectedSubtopics={
+															setSelectedSubtopics
+														}
+														name={"skeleton"}
+														href={""}
+														progress={Math.floor(
+															Math.random() * 100
+														)}
+													/>
+												))}
+											</TopicItem>
+										))}
+									</>
+								)}
+							</Suspense>
 						</div>
 					</div>
 
@@ -131,6 +176,16 @@ export const SelectionScreen = () => {
 };
 
 const TopicItem = ({ children, title }: { children: any; title: string }) => {
+	if (title == "skeleton") {
+		return (
+			<div className={styles.topicItem}>
+				<br></br>
+				<Skeleton height="40px" width="400px" />
+				<br></br>
+				<div className={styles.subtopicGrid}>{children}</div>
+			</div>
+		);
+	}
 	return (
 		<div className={styles.topicItem}>
 			<h1>{title}</h1>
@@ -152,6 +207,19 @@ const SubtopicItem = ({
 	setSelectedSubtopics: any;
 	progress: number;
 }) => {
+	if (name == "skeleton") {
+		return (
+			<div className={styles.subtopicItem}>
+				<div>
+					<Checkbox enabled={false} callback={() => {}} />
+				</div>
+				<div className={styles.subtopicDescription}>
+					<Skeleton height="22px" width="100px" />
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<div className={styles.subtopicItem}>
 			<div>

@@ -4,6 +4,7 @@ import { emailRegex } from "@/constants/email";
 import { Dialogue } from "../onePageDialogue";
 import { logout } from "../authentication/sdk";
 import LogOut from "@/assets/log-out.svg";
+import Link from "next/link";
 
 export const TeacherDialogue = ({ name }: { name: string }) => {
 	return (
@@ -12,9 +13,9 @@ export const TeacherDialogue = ({ name }: { name: string }) => {
 				<div className={styles.buttonContainer}>
 					<div></div>
 					<div>
-						<a href="/class/create">
+						<Link href="/class/create">
 							<Button>Create class</Button>
-						</a>
+						</Link>
 						<Button onClick={logout} image={<LogOut />}>
 							Log Out
 						</Button>
@@ -35,8 +36,8 @@ export const TeacherDialogue = ({ name }: { name: string }) => {
 					your employer to enrol you into the class.
 				</p>
 				<p>
-					If you are sure your students aren't already in a class on
-					RandomMaths, create a class for your students.
+					If you are sure your students aren&apos;t already in a class
+					on RandomMaths, create a class for your students.
 				</p>
 			</div>
 		</Dialogue>

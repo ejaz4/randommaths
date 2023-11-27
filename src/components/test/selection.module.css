@@ -52,8 +52,18 @@
 }
 
 .rightSideGrid {
-	width: 60%;
+	/* width: 60%; */
 	padding: 20px;
+	box-sizing: border-box;
+	width: 750px;
+	max-width: 750px;
+}
+
+@media only screen and (max-width: 1317px) {
+	.rightSideGrid {
+		width: 100%;
+		max-width: 100%;
+	}
 }
 
 .rightSideFooter {
@@ -105,6 +115,7 @@
 	display: flex;
 	padding: 15px;
 	justify-content: space-between;
+	box-sizing: border-box;
 	align-items: center;
 	background-color: white;
 	border-radius: 10px;
@@ -113,7 +124,7 @@
 .subtopicDescription {
 	display: flex;
 	flex-direction: column;
-	align-items: end;
+	align-items: flex-start;
 	gap: 10px;
 	width: 100%;
 }
@@ -126,4 +137,12 @@
 	display: grid;
 	gap: 10px;
 	grid-template-columns: repeat(2, 1fr);
+}
+
+@media only screen and (max-width: 787px) {
+	.subtopicGrid {
+		display: flex;
+		gap: 10px;
+		flex-direction: column;
+	}
 }

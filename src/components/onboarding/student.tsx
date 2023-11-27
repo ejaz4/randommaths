@@ -38,9 +38,9 @@ export const StudentDialogue = ({ name }: { name: string }) => {
 				<div className={styles.buttonContainer}>
 					<div></div>
 					<div>
-						<a href="/dashboard">
+						<Link href="/dashboard">
 							<Button>Skip</Button>
-						</a>
+						</Link>
 						<Button onClick={joinClass} image={<Link />}>
 							Enrol
 						</Button>
@@ -58,7 +58,7 @@ export const StudentDialogue = ({ name }: { name: string }) => {
 					<input id="classInput" type="text" placeholder="ABCD1234" />
 					<p>
 						Your teacher or school should have given you a class
-						code. If you didn't join under the advice of your
+						code. If you didn&apos;t join under the advice of your
 						school, you can skip this step.
 					</p>
 				</div>
