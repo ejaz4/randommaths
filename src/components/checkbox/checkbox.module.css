@@ -1,0 +1,37 @@
+.invisibleCheckbox {
+	display: none;
+}
+
+.checkbox {
+	width: 22px;
+	height: 22px;
+	border-radius: 7px;
+	border: solid 2px rgba(0, 0, 0, 0.22);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.checked {
+	background-color: #ff7a00;
+	border: solid 2px #ff7a00;
+}
+
+.checked .check {
+	display: flex;
+	justify-content: center;
+	align-self: center;
+	animation: showUp 0.25s ease-out;
+}
+
+@keyframes showUp {
+	0% {
+		opacity: 0;
+		transform: scale(0.5);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}

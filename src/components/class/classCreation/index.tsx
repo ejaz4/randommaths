@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { Dialogue } from "../onePageDialogue";
-import { ActOnVerify } from "../authentication/sdk";
+import { Dialogue } from "../../onePageDialogue";
+import { ActOnVerify } from "../../authentication/sdk";
 import styles from "./ClassCreation.module.css";
-import { Button } from "../button";
+import { Button } from "../../button";
 
-import Plus from "@/assets/plus.svg"
+import Plus from "@/assets/plus.svg";
 
 export const ClassCreationDialogue = () => {
 	const [name, setName] = useState("");
-	
+
 	useEffect(() => {
 		const token = localStorage.getItem("token");
 		ActOnVerify();
@@ -30,9 +30,13 @@ export const ClassCreationDialogue = () => {
 		}
 	}, []);
 
-	const createClass = async() => {
-		const className = (document.getElementById("className") as HTMLInputElement).value.trim();
-		let acceptedClassName = `${name.split(" ")[0].slice(0, 1)} ${name.split(" ")[1]}'s class`;
+	const createClass = async () => {
+		const className = (
+			document.getElementById("className") as HTMLInputElement
+		).value.trim();
+		let acceptedClassName = `${name.split(" ")[0].slice(0, 1)} ${
+			name.split(" ")[1]
+		}'s class`;
 
 		if (className != "") {
 			acceptedClassName = className;
@@ -52,32 +56,44 @@ export const ClassCreationDialogue = () => {
 		});
 
 		if (createRequest.status == 200) {
-			return window.location.href = `/class/${(await createRequest.json()).classId}`;
+			return (window.location.href = `/class/${
+				(await createRequest.json()).classId
+			}`);
 		} else {
-			return alert("An error occured while creating your class. Please try again later.");
+			return alert(
+				"An error occured while creating your class. Please try again later."
+			);
 		}
-	}
+	};
 
 	return (
 		<Dialogue
-		
-		footer={
-			<div className={styles.buttonContainer}>
-				<div></div>
-				<div>
-					<Button onClick={createClass} image={<Plus/>}>Create</Button>
+			footer={
+				<div className={styles.buttonContainer}>
+					<div></div>
+					<div>
+						<Button onClick={createClass} image={<Plus />}>
+							Create
+						</Button>
+					</div>
 				</div>
-			</div>
-		}>
+			}
+		>
 			<div>
 				<h1>{name.split(" ")[0]}, let's get your class set up</h1>
 				<p>
-					To get started, we need to know a bit about your class. Don't worry,
-					you can change this later.
+					To get started, we need to know a bit about your class.
+					Don't worry, you can change this later.
 				</p>
 
 				<p>Name your class</p>
-				<input type="text" id="className" placeholder={`${name.split(" ")[0].slice(0, 1)} ${name.split(" ")[1]}'s class`}/>
+				<input
+					type="text"
+					id="className"
+					placeholder={`${name.split(" ")[0].slice(0, 1)} ${
+						name.split(" ")[1]
+					}'s class`}
+				/>
 			</div>
 		</Dialogue>
 	);

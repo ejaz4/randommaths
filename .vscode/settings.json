@@ -1,4 +1,9 @@
 {
   "editor.formatOnSave": true,
-  "svg.preview.background": "editor"
+  "svg.preview.background": "editor",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[prisma]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "Prisma.prisma"
+  }
 }

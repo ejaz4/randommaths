@@ -1,5 +1,11 @@
-import styles from "./PageConstraints.module.css"
+import { Header } from "../header";
+import styles from "./PageConstraints.module.css";
 
 export const PageConstraints = ({ children }: { children: any }) => {
-  return <div className={styles.pageConstraints}>{children}</div>;
+	return (
+		<>
+			<Header />
+			<div className={styles.pageConstraints}>{children}</div>
+		</>
+	);
 };

@@ -14,7 +14,7 @@ export default async function handler(
 		if (token) {
 			const verify = await verifyToken(token);
 
-			if (verify) {
+			if (verify.status) {
 				return res.status(200).json({ message: "Token is valid" });
 			} else {
 				return res.status(400).json({ message: "Token is invalid" });

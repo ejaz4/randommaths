@@ -1,5 +1,5 @@
 import { PageConstraints } from "@/components/constraints";
-import { ClassCreationDialogue } from "@/components/classCreation";
+import { ClassCreationDialogue } from "@/components/class/classCreation";
 
 export const ClassCreation = () => {
 	return (

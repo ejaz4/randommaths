@@ -23,6 +23,19 @@ model User {
   classId       String?
   ClassAndOwner ClassAndOwner[]
   Token         Token[]
+  work          Work[]
+}
+
+model Work {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  progress  Int      @default(0)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  setBy     Class?   @relation(fields: [setById], references: [id])
+  setById   String?
 }
 
 model Token {
@@ -40,6 +53,7 @@ model Class {
   students        User[]        @relation("student")
   classAndOwner   ClassAndOwner @relation(fields: [classAndOwnerId], references: [id])
   classAndOwnerId String        @unique
+  Work            Work[]
 }
 
 model ClassAndOwner {

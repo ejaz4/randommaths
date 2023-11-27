@@ -1,13 +1,15 @@
 .parent {
-  width: 100%;
-  height: 6px;
-  background-color: #d9d9d9;
-  overflow-x: hidden;
+	width: 100%;
+	height: 6px;
+	background-color: #d9d9d9;
+	overflow-x: hidden;
 
-  border-radius: 20px;
+	border-radius: 20px;
 }
 .child {
-  height: 100%;
-  background: linear-gradient(91deg, #42b3b5 -3.43%, #4b81ac 100.75%);
-  border-radius: 20px;
+	height: 100%;
+	background: linear-gradient(91deg, #42b3b5 -3.43%, #4b81ac 100.75%);
+	border-radius: 20px;
+	max-width: 0px;
+	transition: max-width 0.5s ease-in-out;
 }
