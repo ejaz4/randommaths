@@ -1,20 +1,30 @@
 .button {
-  background-color: white;
-  padding-left: 18px;
-  padding-right: 18px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  font-size: 16px;
-  border: 0;
-  border-radius: 27px;
-  font-weight: 500;
+	background-color: white;
+	padding-left: 18px;
+	padding-right: 18px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	font-size: 16px;
+	border: 0;
+	border-radius: 27px;
+	font-weight: 500;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 5px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 5px;
 }
 
 .button:hover {
-  background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), linear-gradient(white, white)
+	background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+		linear-gradient(white, white);
+}
+
+.invert {
+	background-color: #ffede9;
+}
+
+.invert:hover {
+	background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+		linear-gradient(#ffede9, #ffede9);
 }

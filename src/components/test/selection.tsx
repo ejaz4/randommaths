@@ -1,9 +1,12 @@
+import { Button } from "../button";
 import { Checkbox } from "../checkbox";
 import { Header } from "../header";
 import { ProgressBar } from "../progressBar";
 import { Skeleton } from "../skeleton";
 import styles from "./selection.module.css";
 import { Fragment, Suspense, useEffect, useState } from "react";
+import ChevronRight from "@/assets/chevron-right.svg";
+import { TestOptions } from "./options";
 
 type Topic = {
 	name: string;
@@ -14,14 +17,18 @@ interface Topics<T> {
 	[key: string]: [T];
 }
 
+interface Specifications {
+	[key: string]: string;
+}
+
 export const SelectionScreen = () => {
-	const [selected, setSelected] = useState("map");
-	const [specifications, setSpecifications] = useState({});
+	const [specifications, setSpecifications] = useState<Specifications>({});
 	const [selectedSpecification, setSelectedSpecification] = useState("GCSE");
 	const [topics, setTopics] = useState<Topics<Topic>>({
 		"Topic 1": [{ name: "Subtopic 1", href: "/tests/map" }],
 	});
 	const [state, setState] = useState("loading");
+	const [screen, setScreen] = useState("selection");
 
 	const [selectedSubtopics, setSelectedSubtopics] = useState<String[]>([]);
 
@@ -64,17 +71,32 @@ export const SelectionScreen = () => {
 		pageBootstrap();
 	}, []);
 
+	useEffect(() => {
+		console.log("selectedSpecification changed");
+		loadTopics();
+	}, [selectedSpecification]);
+
 	return (
 		<div className={styles.app}>
 			<Header />
 			<div className={styles.screen}>
 				<div className={styles.leftSide}>
-					<div className="innerSelection">
-						<div className="sidebarItem">
-							{Object.keys(specifications).map((spec: any, i) => {
-								return <p key={i}>{spec}</p>;
-							})}
-						</div>
+					<div className={styles.leftSideInner}>
+						{Object.keys(specifications).map((spec: any, i) => {
+							return (
+								<SpecificationItem
+									name={spec}
+									href={specifications[spec]}
+									selectedSpecification={
+										selectedSpecification
+									}
+									key={i}
+									setSelectedSpecification={
+										setSelectedSpecification
+									}
+								/>
+							);
+						})}
 					</div>
 				</div>
 				<div className={styles.rightSide}>
@@ -163,14 +185,62 @@ export const SelectionScreen = () => {
 					>
 						<div className={styles.rightSideFooterInner}>
 							<p>
-								{selectedSubtopics.length} topic
-								{selectedSubtopics.length > 1 ? "s" : ""}{" "}
+								{selectedSubtopics.length != 0
+									? selectedSubtopics.length
+									: "No"}{" "}
+								sub-topic
+								{selectedSubtopics.length != 1 ? "s" : ""}{" "}
 								selected
 							</p>
+							<Button
+								onClick={() => {
+									setScreen("options");
+								}}
+								variant="invert"
+								image={<ChevronRight />}
+							>
+								Continue
+							</Button>
 						</div>
 					</div>
 				</div>
 			</div>
+			{screen == "options" && (
+				<TestOptions
+					setScreen={setScreen}
+					subtopics={selectedSubtopics}
+				/>
+			)}
+		</div>
+	);
+};
+
+const SpecificationItem = ({
+	name,
+	href,
+	setSelectedSpecification,
+	selectedSpecification,
+}: {
+	name: string;
+	href: string;
+	setSelectedSpecification: any;
+	selectedSpecification: string;
+}) => {
+	const setToMe = () => {
+		// Sets the selected specification to the one that was clicked.
+		setSelectedSpecification(href);
+	};
+
+	return (
+		<div
+			onClick={setToMe}
+			className={`${styles.specificationItem} ${
+				selectedSpecification == href
+					? styles.specificationItemActive
+					: ""
+			}`}
+		>
+			<p>{name}</p>
 		</div>
 	);
 };
@@ -219,6 +289,8 @@ const SubtopicItem = ({
 			</div>
 		);
 	}
+
+	const [checked, setChecked] = useState(false);
 
 	return (
 		<div className={styles.subtopicItem}>

@@ -33,9 +33,9 @@
 	flex-direction: column;
 }
 
-.rightSide > div {
+/* .rightSide > div {
 	/* flex: 1; */
-}
+/* } */
 
 .rightSideInner {
 	display: flex;
@@ -59,34 +59,53 @@
 	max-width: 750px;
 }
 
+.rightSideFooterInner {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.rightSideFooter {
+	width: 750px;
+	max-width: 750px;
+	display: flex;
+	justify-content: stretch;
+	align-self: flex-start;
+	animation: footerSlideIn 0.5s cubic-bezier(0, 0.04, 0, 1);
+}
+
+.rightSideFooterDisabled {
+	width: 750px;
+	max-width: 750px;
+	display: flex;
+	justify-content: stretch;
+	align-self: flex-start;
+	animation: footerSlideOut 0.5s cubic-bezier(0, 0.04, 0, 1) forwards;
+}
+
+.leftSideInner {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 5px;
+	width: 300px;
+	padding-right: 20px;
+}
+
 @media only screen and (max-width: 1317px) {
 	.rightSideGrid {
 		width: 100%;
 		max-width: 100%;
 	}
-}
-
-.rightSideFooter {
-	width: 100%;
-	display: flex;
-	justify-content: stretch;
-	animation: footerSlideIn 0.5s cubic-bezier(0, 0.04, 0, 1);
-}
-
-.rightSideFooterDisabled {
-	width: 100%;
-	display: flex;
-	justify-content: stretch;
-	animation: footerSlideOut 0.5s cubic-bezier(0, 0.04, 0, 1) forwards;
-}
-
-.rightSideFooterInner {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 20px;
-	box-sizing: border-box;
+	.rightSideFooter,
+	.rightSideFooterDisabled {
+		width: 100%;
+		max-width: 100%;
+	}
 }
 
 .rightSideFooter p {
@@ -96,18 +115,22 @@
 @keyframes footerSlideIn {
 	0% {
 		max-height: 0px;
+		opacity: 0;
 	}
 	100% {
-		max-height: 65px;
+		max-height: 80px;
+		opacity: 1;
 	}
 }
 
 @keyframes footerSlideOut {
 	0% {
-		max-height: 65px;
+		max-height: 80px;
+		opacity: 1;
 	}
 	100% {
 		max-height: 0px;
+		opacity: 0;
 	}
 }
 
@@ -145,4 +168,21 @@
 		gap: 10px;
 		flex-direction: column;
 	}
+}
+
+.specificationItem {
+	background-color: white;
+	padding: 15px;
+	box-sizing: border-box;
+	border-radius: 7px;
+	width: 100%;
+}
+
+.specificationItem p {
+	margin: 0;
+	pointer-events: none;
+}
+
+.specificationItemActive {
+	background-color: #ffd1c6;
 }

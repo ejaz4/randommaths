@@ -1,0 +1,18 @@
+.multiSelect {
+	display: flex;
+	justify-content: start;
+	gap: 15px;
+}
+
+.option {
+	border-radius: 10px;
+	padding: 12px 16px;
+}
+
+.selected {
+	background-color: #ffd1c6;
+}
+
+.invisibleInput {
+	display: none;
+}

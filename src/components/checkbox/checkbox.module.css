@@ -21,7 +21,22 @@
 	display: flex;
 	justify-content: center;
 	align-self: center;
-	animation: showUp 0.25s ease-out;
+	/* animation: showUp 0.25s ease-out; */
+}
+.checked path {
+	animation: pathShowUp 0.25s ease-out;
+}
+
+@keyframes pathShowUp {
+	0% {
+		stroke-dasharray: 42;
+		stroke-dashoffset: 61;
+	}
+
+	100% {
+		stroke-dasharray: 29;
+		stroke-dashoffset: 61;
+	}
 }
 
 @keyframes showUp {

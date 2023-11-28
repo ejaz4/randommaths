@@ -11,15 +11,14 @@ export const Checkbox = ({
 	enabled?: boolean;
 	callback?: any;
 }) => {
-	const [checked, setChecked] = useState(false);
+	const [checked, setChecked] = useState(value);
 
 	const toggleCheck = () => {
 		if (enabled) {
 			setChecked(!checked);
-			callback(!checked);
+			callback(!checked, setChecked);
 		}
 	};
-
 	return (
 		<div
 			className={`${styles.checkbox} ${checked ? styles.checked : ""}`}
