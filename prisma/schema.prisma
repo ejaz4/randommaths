@@ -24,18 +24,48 @@ model User {
   ClassAndOwner ClassAndOwner[]
   Token         Token[]
   work          Work[]
+  Proficiency   Proficiency[]
+}
+
+model Proficiency {
+  genId     String   @id @default(uuid())
+  id        String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  level     Int
+  gradient  Int
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Work {
-  id        String   @id @default(uuid())
+  id String @id @default(uuid())
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  title     String
-  progress  Int      @default(0)
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  setBy     Class?   @relation(fields: [setById], references: [id])
-  setById   String?
+
+  title    String
+  progress Int    @default(0)
+  userId   String
+  status   String @default("incomplete")
+
+  subTopics String
+
+  questionMax Int
+
+  breaksAllowed Boolean
+  reviewAfter   Boolean
+
+  onBreak          Boolean
+  startTime        DateTime?
+  endTime          DateTime?
+  currentQuestion  Int
+  questionsCorrect Int
+  cheating         Boolean   @default(false)
+
+  user     User    @relation(fields: [userId], references: [id])
+  sendTo   Class?  @relation(fields: [sendtoId], references: [id])
+  sendtoId String?
 }
 
 model Token {

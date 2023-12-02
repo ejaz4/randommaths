@@ -2,7 +2,8 @@ import styles from "./Onboarding.module.css";
 import { Button } from "../button";
 import { emailRegex } from "@/constants/email";
 import { Dialogue } from "../onePageDialogue";
-import Link from "@/assets/link.svg";
+import LinkIcon from "@/assets/link.svg";
+import Link from "next/link";
 
 export const StudentDialogue = ({ name }: { name: string }) => {
 	const joinClass = async () => {
@@ -41,7 +42,7 @@ export const StudentDialogue = ({ name }: { name: string }) => {
 						<Link href="/dashboard">
 							<Button>Skip</Button>
 						</Link>
-						<Button onClick={joinClass} image={<Link />}>
+						<Button onClick={joinClass} image={<LinkIcon />}>
 							Enrol
 						</Button>
 					</div>

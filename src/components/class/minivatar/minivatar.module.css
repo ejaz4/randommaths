@@ -1,0 +1,13 @@
+.minivatar {
+	padding: 10px;
+	border-radius: 5px;
+	display: flex;
+	width: fit-content;
+	background-color: #ffede9;
+	align-self: flex-start;
+}
+
+.minivatar p {
+	width: fit-content;
+	margin: 0;
+}

@@ -1,0 +1,24 @@
+[
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-02 015854.png",
+		"answers": {
+			"A": 0.08,
+			"B": 0.125
+		}
+	},
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-02 020016.png",
+		"answers": {
+			"A": 0.8
+		}
+	},
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-02 020016.png",
+		"answers": {
+			"A": 0.8
+		}
+	}
+]

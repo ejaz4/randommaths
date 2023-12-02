@@ -7,6 +7,7 @@ import styles from "./selection.module.css";
 import { Fragment, Suspense, useEffect, useState } from "react";
 import ChevronRight from "@/assets/chevron-right.svg";
 import { TestOptions } from "./options";
+import { isPropertyAccessChain } from "typescript";
 
 type Topic = {
 	name: string;
@@ -21,6 +22,10 @@ interface Specifications {
 	[key: string]: string;
 }
 
+interface Profi {
+	[key: string]: number;
+}
+
 export const SelectionScreen = () => {
 	const [specifications, setSpecifications] = useState<Specifications>({});
 	const [selectedSpecification, setSelectedSpecification] = useState("GCSE");
@@ -32,6 +37,9 @@ export const SelectionScreen = () => {
 
 	const [selectedSubtopics, setSelectedSubtopics] = useState<String[]>([]);
 
+	const [profi, setProfi] = useState<Profi>({});
+	const [maxProfi, setMaxProfi] = useState(0);
+
 	const loadSpecifications = async () => {
 		const specsManifest = await fetch("/tests/manifest.json");
 
@@ -42,6 +50,62 @@ export const SelectionScreen = () => {
 
 		const specs = await specsManifest.json();
 		setSpecifications(specs);
+	};
+
+	useEffect(() => {
+		if (!Object.keys(topics).includes("Topic 1")) {
+			if (topics != undefined) {
+				loadProficiencies();
+			}
+		}
+	}, [topics]);
+
+	const loadProficiencies = async () => {
+		let subtopics: string[] = [];
+		const topicNames = Object.keys(topics);
+		setProfi({});
+
+		for (const topicName of topicNames) {
+			const subtopicNames = topics[topicName].map(
+				(subtopic: Topic) => subtopic.href
+			);
+			subtopics = [...subtopics, ...subtopicNames];
+		}
+
+		subtopics.forEach((item, i) => {
+			subtopics[i] = `${selectedSpecification}/${item}`;
+		});
+
+		const proficiencyRequest = await fetch(
+			`/api/user/@me/proficiency/get`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					authorization: localStorage.getItem("token") as string,
+				},
+				body: JSON.stringify(subtopics),
+			}
+		);
+
+		if (proficiencyRequest.status !== 200) {
+			return;
+		}
+
+		const proficiencies = await proficiencyRequest.json();
+
+		let maxProfi = 0;
+
+		proficiencies.forEach((proficiency: any) => {
+			setProfi((prev: any) => ({
+				...prev,
+				[proficiency.id]: proficiency.level,
+			}));
+
+			maxProfi += proficiency.level;
+		});
+
+		setMaxProfi(maxProfi);
 	};
 
 	const loadTopics = async () => {
@@ -127,13 +191,14 @@ export const SelectionScreen = () => {
 																	name={
 																		subtopic.name
 																	}
-																	href={
-																		subtopic.href
+																	href={`${specifications[selectedSpecification]}/${subtopic.href}`}
+																	progress={
+																		(profi[
+																			`${selectedSpecification}/${subtopic.href}`
+																		] /
+																			maxProfi) *
+																		100
 																	}
-																	progress={Math.floor(
-																		Math.random() *
-																			100
-																	)}
 																/>
 															)
 													  )
@@ -315,7 +380,7 @@ const SubtopicItem = ({
 			</div>
 			<div className={styles.subtopicDescription}>
 				<p>{name}</p>
-				<ProgressBar progress={progress} />
+				{progress != 0 && <ProgressBar progress={progress} />}
 			</div>
 		</div>
 	);

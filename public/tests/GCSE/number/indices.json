@@ -1,0 +1,72 @@
+[
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-01 051243.png",
+		"answers": {
+			"A": 0.08
+		}
+	},
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-01 051539.png",
+		"answers": {
+			"A": 10
+		}
+	},
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-02 014617.png",
+		"answers": {
+			"A": 0.125
+		}
+	},
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-02 014855.png",
+		"answers": {
+			"A": 1.5
+		}
+	},
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-02 015042.png",
+		"answers": {
+			"A": "1/9"
+		}
+	},
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-02 015201.png",
+		"answers": {
+			"A": 0.64
+		}
+	},
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-02 015252.png",
+		"answers": {
+			"A": 8
+		}
+	},
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-02 015355.png",
+		"answers": {
+			"A": 8
+		}
+	},
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-02 015355.png",
+		"answers": {
+			"A": 6.25
+		}
+	},
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-02 015459.png",
+		"answers": {
+			"A": 200
+		}
+	}
+]

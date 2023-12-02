@@ -1,0 +1,30 @@
+[
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-01 015403.png",
+		"answers": {
+			"A": 63
+		}
+	},
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-01 015654.png",
+		"answers": {
+			"A": 105
+		}
+	},
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-01 035153.png",
+		"answers": {
+			"A": 72
+		}
+	},
+	{
+		"type": "image",
+		"src": "/images/tests/GCSE/number/Screenshot 2023-12-01 035321.png",
+		"answers": {
+			"A": 1800
+		}
+	}
+]

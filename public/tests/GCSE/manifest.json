@@ -1,26 +1,22 @@
 {
 	"Number": [
 		{
-			"name": "Basic Number",
+			"name": "Basic Number (Working)",
 			"href": "number/basic-number.json"
 		},
 		{
-			"name": "Fractions and Decimals",
+			"name": "Fractions and Decimals (Working)",
 			"href": "number/fractions.json"
 		},
 		{
 			"name": "Indices",
 			"href": "number/indices.json"
-		},
-		{
-			"name": "Surds",
-			"href": "number/surds.json"
 		}
 	],
 	"Algebra": [
 		{
-			"name": "Algebraic Fractions",
-			"href": "algebra/algebraic-fractions.json"
+			"name": "Functions",
+			"href": "algebra/algebraic-functions.json"
 		},
 		{
 			"name": "Coordinates and Graphs",

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Checkbox } from "../checkbox";
 import { PageConstraints, RawConstraint } from "../constraints";
 import { MultiSelect } from "../multi-select";
@@ -14,13 +14,16 @@ export const TestOptions = ({
 	setScreen: any;
 	subtopics?: String[];
 }) => {
+	const [hasTeacher, setHasTeacher] = useState(false);
+	const [className, setClassName] = useState("");
+
 	// Creating variables to store and change them via the checkboxes.
 	const [submit, setSubmit] = useState(false);
 	const [breaks, setBreaks] = useState(true);
 	const [review, setReview] = useState(true);
 
 	// This function will be called when the user clicks the start button.
-	const startTest = () => {
+	const startTest = async () => {
 		// Get the values from the inputs.
 		const questionsInput = document.getElementById(
 			"questionLimit"
@@ -33,20 +36,69 @@ export const TestOptions = ({
 		const questions = questionsInput.value;
 		const duration = durationInput.value;
 
-		console.log({
-			submit,
-			breaks,
-			review,
-			questions,
-			duration,
-			subtopics,
+		// Create a new test object.
+		const test = {
+			subtopics: subtopics,
+			questions: questions,
+			duration: duration,
+			submit: submit,
+			breaks: breaks,
+			review: review,
+		};
+
+		// Send these details off to the server
+		const testCreateRequest = await fetch("/api/test/create", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				authorization: localStorage.getItem("token") as string,
+			},
+			body: JSON.stringify(test),
 		});
+
+		// Check if the request was unsuccessful.
+		if (testCreateRequest.status !== 200) {
+			// Return and error.
+			alert("Failed to create test.");
+			return;
+		}
+
+		// get the response from the server
+		const testCreateResponse = await testCreateRequest.json();
+		localStorage.removeItem("tracking");
+
+		// Redirect to the test.
+		window.location.href = `/test/${testCreateResponse.testId}/question`;
 	};
 
 	// Quit button callback.
 	const quit = () => {
 		setScreen("selection");
 	};
+
+	const checkClass = async () => {
+		const userFetch = await fetch("/api/user", {
+			method: "GET",
+			headers: {
+				authorization: localStorage.getItem("token") as string,
+			},
+		});
+
+		if (userFetch.status !== 200) {
+			return;
+		}
+
+		const user = await userFetch.json();
+
+		if (user.user.class) {
+			setHasTeacher(true);
+			setClassName(user.user.class.name);
+		}
+	};
+
+	useEffect(() => {
+		checkClass();
+	}, []);
 
 	return (
 		<div className={styles.optionsBackground}>
@@ -94,15 +146,17 @@ export const TestOptions = ({
 								/>
 							</div>
 
-							<div className={styles.checkmarkOption}>
-								<Checkbox
-									value={false}
-									callback={(option: boolean) => {
-										setSubmit(option);
-									}}
-								/>
-								<p>Submit to teacher</p>
-							</div>
+							{hasTeacher && (
+								<div className={styles.checkmarkOption}>
+									<Checkbox
+										value={false}
+										callback={(option: boolean) => {
+											setSubmit(option);
+										}}
+									/>
+									<p>Submit to {className}</p>
+								</div>
+							)}
 							<div className={styles.checkmarkOption}>
 								<Checkbox
 									value={true}
