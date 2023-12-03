@@ -48,6 +48,23 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	gap: 15px;
+}
+
+.studentMiniTaskList {
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+
+	box-sizing: border-box;
+	gap: 10px;
+}
+
+.studentMiniTaskItem {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
 }
 
 .className {

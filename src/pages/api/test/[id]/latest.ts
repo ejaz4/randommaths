@@ -60,6 +60,7 @@ export default async function handler(
 				cheating: true,
 				subTopics: true,
 				updatedAt: true,
+				duration: true,
 			},
 		});
 

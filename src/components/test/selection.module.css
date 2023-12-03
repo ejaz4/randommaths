@@ -3,7 +3,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	height: calc(100% - 84px);
+	height: calc(100% - 82px);
 	align-self: flex-end;
 }
 

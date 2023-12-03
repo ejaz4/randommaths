@@ -2,7 +2,7 @@ import { PageConstraints } from "@/components/constraints";
 import { ClassCreationDialogue } from "@/components/class/classCreation";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { ClassManagement, TeacherView } from "@/components/class/teacherView";
+import { ClassManagement, TeacherView } from "@/components/class/management";
 
 export const ClassView = () => {
 	const router = useRouter();

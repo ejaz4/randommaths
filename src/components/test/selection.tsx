@@ -8,6 +8,7 @@ import { Fragment, Suspense, useEffect, useState } from "react";
 import ChevronRight from "@/assets/chevron-right.svg";
 import { TestOptions } from "./options";
 import { isPropertyAccessChain } from "typescript";
+import { ActOnVerify } from "../authentication/sdk";
 
 type Topic = {
 	name: string;
@@ -39,6 +40,7 @@ export const SelectionScreen = () => {
 
 	const [profi, setProfi] = useState<Profi>({});
 	const [maxProfi, setMaxProfi] = useState(0);
+	const [profiItems, setProfiItems] = useState(0);
 
 	const loadSpecifications = async () => {
 		const specsManifest = await fetch("/tests/manifest.json");
@@ -51,6 +53,10 @@ export const SelectionScreen = () => {
 		const specs = await specsManifest.json();
 		setSpecifications(specs);
 	};
+
+	useEffect(() => {
+		ActOnVerify();
+	}, []);
 
 	useEffect(() => {
 		if (!Object.keys(topics).includes("Topic 1")) {
@@ -75,6 +81,8 @@ export const SelectionScreen = () => {
 		subtopics.forEach((item, i) => {
 			subtopics[i] = `${selectedSpecification}/${item}`;
 		});
+
+		setProfiItems(subtopics.length);
 
 		const proficiencyRequest = await fetch(
 			`/api/user/@me/proficiency/get`,
@@ -139,6 +147,19 @@ export const SelectionScreen = () => {
 		console.log("selectedSpecification changed");
 		loadTopics();
 	}, [selectedSpecification]);
+
+	const reviewWeaknesses = () => {
+		let weaknesses: string[] = [];
+
+		Object.keys(profi).forEach((key: string) => {
+			if (profi[key] != 0) {
+				weaknesses.push(key);
+			}
+		});
+
+		setSelectedSubtopics(weaknesses);
+		setScreen("options");
+	};
 
 	return (
 		<div className={styles.app}>
@@ -238,6 +259,12 @@ export const SelectionScreen = () => {
 									</>
 								)}
 							</Suspense>
+
+							<div style={{ marginTop: 15 }}>
+								<Button onClick={reviewWeaknesses}>
+									Review Weaknesses
+								</Button>
+							</div>
 						</div>
 					</div>
 

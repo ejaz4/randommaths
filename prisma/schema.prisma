@@ -59,6 +59,7 @@ model Work {
   onBreak          Boolean
   startTime        DateTime?
   endTime          DateTime?
+  duration         Int?
   currentQuestion  Int
   questionsCorrect Int
   cheating         Boolean   @default(false)

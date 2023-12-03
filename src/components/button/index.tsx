@@ -7,7 +7,7 @@ export const Button = ({
 	onClick,
 	variant = "white",
 }: {
-	children: string;
+	children: any;
 	image?: any;
 	onClick?: () => void;
 	variant?: "white" | "invert";

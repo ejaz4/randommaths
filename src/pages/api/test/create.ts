@@ -1,14 +1,18 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { verifyToken } from "../../../../libs/verify";
 import { prisma } from "../../../../libs/prisma";
+import { Prisma, Work } from "@prisma/client";
+import { DefaultArgs } from "@prisma/client/runtime/library";
 
 type TestCreatePOSTRequest = {
 	subtopics: string[];
-	submit: boolean;
+	submit: boolean | string;
 	breaks: boolean;
 	review: boolean;
 	questions: string;
 	duration: string;
+	targetUserId?: string;
+	title?: string;
 };
 
 export default async function handler(
@@ -66,10 +70,16 @@ export default async function handler(
 
 		const durationInMs = dur * 60 * 1000;
 
+		let userID = verify.userId;
+
+		if (req.body.targetUserId) {
+			userID = req.body.targetUserId;
+		}
+
 		const user = await prisma.user
 			.findUnique({
 				where: {
-					id: verify.userId,
+					id: userID,
 				},
 				select: {
 					name: true,
@@ -98,45 +108,8 @@ export default async function handler(
 		// Create the title, format should be "Name's TimeofDay Test"
 		let forgedTitle = `${user.name?.split(" ")[0]}'s ${timeOfDay} test`;
 
-		if (durationInMs != 0) {
-			const date = new Date(Date.now() + durationInMs);
-
-			const test = await prisma.work
-				.create({
-					data: {
-						subTopics: JSON.stringify(subtopics),
-						breaksAllowed: breaks,
-						reviewAfter: review,
-						questionMax: parseInt(questions),
-						currentQuestion: 0,
-						questionsCorrect: 0,
-						user: {
-							connect: {
-								id: verify.userId,
-							},
-						},
-						endTime: new Date(Date.now() + durationInMs),
-						startTime: new Date(),
-						onBreak: false,
-						title: forgedTitle,
-					},
-				})
-				.catch((err) => {
-					return res
-						.status(400)
-						.json({ message: "Could not make the test." });
-				});
-
-			// Check if the test was created
-			if (!test) {
-				return res
-					.status(400)
-					.json({ message: "Could not make the test." });
-			}
-
-			return res
-				.status(200)
-				.json({ message: "Test created", testId: test.id });
+		if (req.body.title) {
+			forgedTitle = req.body.title;
 		}
 
 		// Create the test
@@ -151,11 +124,11 @@ export default async function handler(
 					questionsCorrect: 0,
 					user: {
 						connect: {
-							id: verify.userId,
+							id: userID,
 						},
 					},
-
 					startTime: new Date(),
+					duration: durationInMs,
 					onBreak: false,
 					title: forgedTitle,
 				},
@@ -171,6 +144,33 @@ export default async function handler(
 			return res
 				.status(400)
 				.json({ message: "Could not make the test." });
+		}
+
+		if (durationInMs != 0) {
+			await prisma.work.update({
+				where: {
+					id: test.id,
+				},
+				data: {
+					endTime: new Date(Date.now() + durationInMs),
+				},
+			});
+		}
+
+		if (typeof submit == "string") {
+			await prisma.work.update({
+				where: {
+					id: test.id,
+				},
+				data: {
+					sendTo: {
+						connect: {
+							id: submit,
+						},
+					},
+					status: "incomplete",
+				},
+			});
 		}
 
 		return res

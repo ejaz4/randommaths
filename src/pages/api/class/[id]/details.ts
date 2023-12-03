@@ -30,6 +30,7 @@ export default async function handler(
 				},
 				select: {
 					name: true,
+					id: true,
 					classCode: true,
 					students: {
 						select: {

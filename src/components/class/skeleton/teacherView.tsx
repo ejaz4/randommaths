@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/skeleton";
-import styles from "../teacherView/teacherView.module.css";
+import styles from "../management/teacherView.module.css";
 
 export const SkeletonView = () => {
 	return (

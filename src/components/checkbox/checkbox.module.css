@@ -10,6 +10,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	transition: background-color 0.3s ease, border 0.3s ease,
+		transform 0.3s ease;
 }
 
 .checked {
@@ -17,14 +19,34 @@
 	border: solid 2px #ff7a00;
 }
 
-.checked .check {
+.checkbox .check {
 	display: flex;
 	justify-content: center;
 	align-self: center;
 	/* animation: showUp 0.25s ease-out; */
 }
+
+.checkbox path {
+	stroke-dasharray: 42;
+	stroke-dashoffset: 61;
+	transition: stroke-dasharray 0.3s ease, stroke-dashoffset 0.3s ease;
+}
+
+.checkbox:active path {
+	stroke-dasharray: 36;
+	stroke-dashoffset: 61;
+}
+
 .checked path {
-	animation: pathShowUp 0.25s ease-out;
+	/* animation: pathShowUp 0.25s ease-out forwards; */
+	stroke-dasharray: 29;
+	stroke-dashoffset: 61;
+}
+
+.checkbox:active {
+	transform: scale(0.9);
+	background-color: rgb(255, 123, 0, 0.5);
+	border: solid 2px rgb(255, 123, 0, 0.5);
 }
 
 @keyframes pathShowUp {

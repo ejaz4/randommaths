@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { Button } from "../button";
 import CrossIcon from "@/assets/x.svg";
 import { Minivatar } from "../class/minivatar";
+import Pause from "@/assets/pause.svg";
+import { useRouter } from "next/router";
 
 export const Header = ({
 	screenData,
@@ -12,6 +14,7 @@ export const Header = ({
 	screenData?: any;
 	screenType?: string;
 }) => {
+	const router = useRouter();
 	const [time, setTime] = useState(0);
 	const [isAbleToEnd, setAbleToEnd] = useState(false);
 	const [timeMode, setTimeMode] = useState("elapsed");
@@ -36,24 +39,46 @@ export const Header = ({
 		}
 	};
 
-	useEffect(() => {
-		console.log("Screen data updated", screenData);
-	}, [screenData]);
+	const pauseExam = async () => {
+		console.log("Exam has been paused");
+		const testID = screenData.id;
+
+		const pauseRequest = await fetch(`/api/test/${testID}/update`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				authorization: localStorage.getItem("token") as string,
+			},
+			body: JSON.stringify({
+				status: "break",
+				onBreak: true,
+			}),
+		});
+
+		if (pauseRequest.status == 200) {
+			router.push({
+				pathname: `/test/[id]/break`,
+				query: { id: testID },
+			});
+		}
+	};
 
 	useEffect(() => {
 		if (screenData?.endTime) {
-			if (time <= 0) {
-				endExam();
+			if (
+				screenData.status != "incomplete" &&
+				screenData.status != "break"
+			) {
+				if (time <= 0) {
+					endExam();
+				}
 			}
 		}
 	}, [time]);
 
 	useEffect(() => {
-		console.log("SD", screenData);
 		if (!screenData || !screenData == undefined) return;
 		if (Object.keys(screenData).length == 0) return;
-
-		console.log("SD PASSED", Object.keys(screenData).length);
 
 		const timerTick = setInterval(() => {
 			if (screenData) {
@@ -110,7 +135,14 @@ export const Header = ({
 			<div>
 				<LogoFull />
 			</div>
-			<div>
+			<div
+				style={{ display: "flex", justifyContent: "flex-end", gap: 15 }}
+			>
+				{screenData?.breaksAllowed && (
+					<Button onClick={pauseExam} variant="invert">
+						<Pause />
+					</Button>
+				)}
 				{screenData?.status == "started" && (
 					<>
 						<Button

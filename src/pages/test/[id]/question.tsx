@@ -16,6 +16,7 @@ interface TestDetails {
 	status: string;
 	startTime: string;
 	endTime: string | null;
+	duration: number;
 	onBreak: boolean;
 	reviewAfter: boolean;
 	breaksAllowed: boolean;
@@ -123,7 +124,10 @@ export const TestQuestionPage = () => {
 			}
 		}
 
-		console.log("Subtopic", subtopic);
+		if (proficiency.length == 1) {
+			subtopic = proficiency[0].id;
+		}
+
 		setChosenSubtopic(subtopic);
 	};
 
@@ -151,7 +155,6 @@ export const TestQuestionPage = () => {
 		}
 		const proficiencyResponse = await proficiencyRequest.json();
 
-		console.log("prof", proficiencyResponse);
 		await generateQuestion(proficiencyResponse);
 	};
 
@@ -172,7 +175,90 @@ export const TestQuestionPage = () => {
 			cheating,
 			subTopics,
 			updatedAt,
+			duration,
 		} = testDetails;
+
+		if (status == "break") {
+			// The test was just on a break.
+			let newDuration = null;
+			let prevDuration = new Date(
+				new Date(updatedAt).getTime() - new Date(startTime).getTime()
+			).getTime();
+
+			let durationRemaining = duration - prevDuration;
+
+			if (duration != 0) {
+				const now = new Date().getTime();
+				newDuration = new Date(now + durationRemaining).toISOString();
+			} else {
+				newDuration = null;
+			}
+
+			const startTestRequest = await fetch(`/api/test/${id}/update`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					authorization: localStorage.getItem("token") as string,
+				},
+				body: JSON.stringify({
+					status: "started",
+					startTime: new Date().toISOString(),
+					endTime: newDuration,
+				}),
+			});
+
+			// Check if the request was unsuccessful.
+			if (startTestRequest.status !== 200) {
+				// Return and error.
+				alert("Failed to start test.");
+				return;
+			}
+
+			// Reload the page with tracking.
+			window.location.replace(
+				`/test/${id}/question?tracking=${localStorage.getItem(
+					"tracking"
+				)}`
+			);
+		}
+
+		if (status == "incomplete") {
+			// The test has not started yet, the test is yet to be initialised.
+			let newDuration = null;
+
+			if (duration != 0) {
+				const now = new Date().getTime();
+				newDuration = new Date(now + duration).toISOString();
+			}
+
+			const startTestRequest = await fetch(`/api/test/${id}/update`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					authorization: localStorage.getItem("token") as string,
+				},
+				body: JSON.stringify({
+					status: "started",
+					startTime: new Date().toISOString(),
+					endTime: newDuration,
+				}),
+			});
+
+			// Check if the request was unsuccessful.
+			if (startTestRequest.status !== 200) {
+				// Return and error.
+				alert("Failed to start test.");
+				return;
+			}
+
+			// Reload the page with tracking.
+			window.location.replace(
+				`/test/${id}/question?tracking=${localStorage.getItem(
+					"tracking"
+				)}`
+			);
+			return;
+		}
 
 		if (currentQuestion == 0) {
 			let body = {
@@ -204,6 +290,7 @@ export const TestQuestionPage = () => {
 					"tracking"
 				)}`
 			);
+			return;
 		}
 
 		// if (router.query.tracking !== localStorage.getItem("tracking")) {
@@ -222,7 +309,6 @@ export const TestQuestionPage = () => {
 			return;
 		}
 
-		console.log("hi", currentQuestion > questionMax);
 		if (currentQuestion > questionMax) {
 			console.log(
 				"Ending exam, the current question is larger than the question max."
@@ -277,6 +363,7 @@ export const TestQuestionPage = () => {
 	return (
 		<div>
 			<Header screenData={testDetails} screenType={"test"} />
+
 			<RawConstraint>
 				{chosenSubtopic != "" && (
 					<Subtopic
@@ -413,10 +500,16 @@ const Subtopic = ({
 	return (
 		<>
 			{screen == "question" && (
-				<div>
-					<br></br>
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						gap: 20,
+						marginTop: 20,
+					}}
+				>
 					<Question question={question} />
-					<br></br>
 					<Answer
 						incorr={answerIncorrectAction}
 						corr={answerCorrectAction}
